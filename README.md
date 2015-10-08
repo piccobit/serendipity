@@ -12,7 +12,7 @@ https://hub.docker.com/_/php/
 
 ### Example
 
-    docker run -e SERVER_NAME=www.example.com -e SERVER_ADMIN=webmaster@example.com SERENDIPITY_URI=/blog -e LOG_LEVEL=notice -e MAX_SIZE=1000 -p 127.0.0.1:8010:80 volkerwiegand/serendipity:2.0.2
+    docker run -e SERVER_NAME=www.example.com -e SERVER_ADMIN=webmaster@example.com -e SERENDIPITY_URI=/blog -e LOG_LEVEL=notice -e MAX_SIZE=1000 -p 127.0.0.1:8010:80 volkerwiegand/serendipity:2.0.2
 
 ### Environment variables
 
@@ -35,7 +35,7 @@ https://hub.docker.com/_/php/
 
 *MAX_SIZE*
 
-  The value for memory_limit (only if larget than the default of 128),
+  The value for memory_limit (only if larger than the default of 128),
   upload_max_filesize and post_max_size. Please enter the number only,
   as the "M" suffix will be appended automatically.
 
@@ -53,3 +53,9 @@ installed using the command line above.
       proxy_pass https://127.0.0.1:8010;
     }
  
+### License
+
+The MIT License (MIT)
+
+Copyright (c) 2015 Volker Wiegand
+
