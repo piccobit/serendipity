@@ -17,9 +17,9 @@ RUN apt-get update && apt-get install -y \
 	vim-tiny \
 	&& rm -rf /var/lib/apt/lists/* /var/www/html/index.html
 
-# https://doc.owncloud.org/server/8.1/admin_manual/installation/source_installation.html#prerequisites
+# http://www.s9y.org/36.html#A3
 RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-	&& docker-php-ext-install gd intl mbstring mcrypt mysql opcache
+	&& docker-php-ext-install gd intl mbstring mcrypt mysqli opcache
 
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
