@@ -33,16 +33,17 @@ RUN { \
 	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 # PECL extensions
-RUN pecl install APCu-beta redis memcached \
+RUN pecl install APCu-4.0.11 redis-2.2.8 memcached \
 	&& docker-php-ext-enable apcu redis memcached
 
 RUN a2enmod rewrite
 
-ENV SERENDIPITY_VERSION 2.0.2
+ENV SERENDIPITY_VERSION 2.0.3
+ENV SERENDIPITY_MD5SUM ba57e13b41828bc4b4661e9047132369
 
 VOLUME /var/www/html
 
-RUN echo "497661f4897fb23919b24a6e512c2d86  serendipity-${SERENDIPITY_VERSION}.zip" >/tmp/md5sums
+RUN echo "${SERENDIPITY_MD5SUM} serendipity-${SERENDIPITY_VERSION}.zip" >/tmp/md5sums
 
 RUN curl -fsSL -o serendipity-${SERENDIPITY_VERSION}.zip \
 		"https://github.com/s9y/Serendipity/releases/download/${SERENDIPITY_VERSION}/serendipity-${SERENDIPITY_VERSION}.zip" \
