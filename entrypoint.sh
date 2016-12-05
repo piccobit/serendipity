@@ -75,8 +75,15 @@ EOF
 # Change ownership to enable online updates
 chown -R www-data /var/www/html
 
+: "${APACHE_CONFDIR:=/etc/apache2}"
+: "${APACHE_ENVVARS:=$APACHE_CONFDIR/envvars}"
+if test -f "$APACHE_ENVVARS"; then
+	. "$APACHE_ENVVARS"
+fi
+
 # Apache gets grumpy about PID files pre-existing
-rm -f /var/run/apache2/apache2.pid
+: "${APACHE_PID_FILE:=${APACHE_RUN_DIR:=/var/run/apache2}/apache2.pid}"
+rm -f "$APACHE_PID_FILE"
 
 # Hand over to apache as PID 1
 exec apache2 -DFOREGROUND
