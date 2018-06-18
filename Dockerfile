@@ -1,5 +1,6 @@
-FROM php:5.6-apache
-MAINTAINER Volker Wiegand <volker.wiegand@cvw.de>
+FROM php:7.2-apache
+# ORIGINAL MAINTAINER Volker Wiegand <volker.wiegand@cvw.de>
+MAINTAINER HD Stich <hans-dieter@stich.email>
 
 # Inspired by the official ownCloud Dockerfile
 
@@ -11,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 	libjpeg-dev \
 	libmcrypt-dev \
 	libmemcached-dev \
-	libpng12-dev \
+	libpng-dev \
 	libpq-dev \
 	imagemagick \
 	vim-tiny \
@@ -19,7 +20,7 @@ RUN apt-get update && apt-get install -y \
 
 # http://www.s9y.org/36.html#A3
 RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-	&& docker-php-ext-install gd intl mbstring mcrypt mysqli opcache
+	&& docker-php-ext-install gd intl mbstring mysqli opcache
 
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
@@ -33,13 +34,13 @@ RUN { \
 	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 # PECL extensions
-RUN pecl install APCu-4.0.11 redis-2.2.8 memcached \
-	&& docker-php-ext-enable apcu redis memcached
+RUN pecl install APCu-4.0.11 redis-2.2.8 memcached mcrypt-1.0.1 \
+	&& docker-php-ext-enable apcu redis memcached mycrypt
 
 RUN a2enmod rewrite
 
-ENV SERENDIPITY_VERSION 2.0.5
-ENV SERENDIPITY_MD5SUM ea6034d854f5f74a3e472f7f7122bf3f
+ENV SERENDIPITY_VERSION 2.1.2
+ENV SERENDIPITY_MD5SUM a89da2ce4c8a98973142bd6ed1613d3d
 
 VOLUME /var/www/html
 
